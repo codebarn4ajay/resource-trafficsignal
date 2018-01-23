@@ -18,9 +18,9 @@ import static org.roadservice.api.trafficsignal.service.AddTrafficService.NEXT_I
 @Service
 public class TrafficMovementService {
     private static final Logger LOGGER = LoggerFactory.getLogger(TrafficMovementService.class);
-    public static final int MAX_GREEN = 3;
-    public static final int ONE_CAR = 1;
-    public static final int ONE_TIME = 1;
+    private static final int MAX_GREEN = 3;
+    private static final int ONE_CAR = 1;
+    private static final int ONE_TIME = 1;
     private static final int signalChangeFactor = 5;
     private static int initialRunCounter = 0;
     private List<List<CrossingLane>> signalsToHandle = SignalQueue.getInstance().getSignalsToHandle();
@@ -55,7 +55,6 @@ public class TrafficMovementService {
             displayNoOfCarsAtEachSignal();
 
         }
-
     }
 
     private void displayNoOfCarsAtEachSignal() {
@@ -70,11 +69,11 @@ public class TrafficMovementService {
     }
 
     //Call this method async for multiple signals
-    public void moveCars(List<CrossingLane> crossingLanes) {
+    private void moveCars(List<CrossingLane> crossingLanes) {
         if (topToBottom == SignalStatus.GREEN_SIGNAL.getStatus()) {
             addCarsAsPerSignalsOnStreet(crossingLanes, NEXT_INDEX);
-
-        } else {
+        }
+        else {
             addCarsAsPerSignalsOnStreet(crossingLanes, FIRST_INDEX);
         }
 

@@ -14,12 +14,9 @@ import java.util.List;
 public class CrossingLaneService {
     @Autowired
     private StreetToSignalQueueTransformer streetToSignalQueueTransformer;
-    @Autowired
-    private TrafficMovementService taskScheduler;
-    private static final Logger LOGGER = LoggerFactory.getLogger(CrossingLaneService.class);
+
 
     public List<CrossingLane> addStreetCrossingData(StreetCrossing streetCrossing) {
-        List<CrossingLane> crossingLanes= streetToSignalQueueTransformer.fromStreetToSignal(streetCrossing);
-        return crossingLanes;
+        return streetToSignalQueueTransformer.fromStreetToSignal(streetCrossing);
     }
 }
