@@ -36,7 +36,6 @@ Write a program that controls the traffic signals for a four-way intersection. I
  	8: N = 5; S = 5; E = 6; W = 6
 ```
  
-### Problem 3: Theatre Seating
 # Compile/run code locally (For 1.0.0 release)
 Following command can be run once code is checked out from repo. Apache Maven 3.3.9 is required to create the build (https://maven.apache.org/).
 *Manual build process:
