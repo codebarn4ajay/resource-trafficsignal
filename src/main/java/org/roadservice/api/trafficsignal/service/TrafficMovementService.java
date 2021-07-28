@@ -2,6 +2,7 @@ package org.roadservice.api.trafficsignal.service;
 
 import org.roadservice.api.trafficsignal.domain.CrossingLane;
 import org.roadservice.api.trafficsignal.domain.SignalQueue;
+import org.roadservice.api.trafficsignal.exceptions.InvalidInputException;
 import org.roadservice.api.trafficsignal.rest.SignalStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,13 +49,17 @@ public class TrafficMovementService {
 
     @Scheduled(fixedDelay = 1000)
     public void addCarsInStreets() {
-        if (signalsToHandle.isEmpty()) {
-            loadSignalQueueIfEmpty();
-        } else {
-            addCarsAtAllSignals();
-            displayNoOfCarsAtEachSignal();
+      try {
+          if (signalsToHandle.isEmpty()) {
+              loadSignalQueueIfEmpty();
+          } else {
+              addCarsAtAllSignals();
+              displayNoOfCarsAtEachSignal();
 
-        }
+          }
+      }catch (InvalidInputException ie) {
+          LOGGER.error("Error during signal orchestration");
+      }
     }
 
     private void displayNoOfCarsAtEachSignal() {
@@ -92,9 +97,13 @@ public class TrafficMovementService {
         }
     }
 
-    private void loadSignalQueueIfEmpty() {
-        signalsToHandle.add(dataLoaderService.loadData());
-        for (List<CrossingLane> crossingLane : SignalQueue.getSignalsToHandle()) {
+    private void loadSignalQueueIfEmpty() throws InvalidInputException {
+       try {
+           signalsToHandle.add(dataLoaderService.loadData());
+       } catch (InvalidInputException ie) {
+           throw ie;
+       }
+       for (List<CrossingLane> crossingLane : SignalQueue.getSignalsToHandle()) {
             addTrafficService.addCarsToStreets();
         }
     }

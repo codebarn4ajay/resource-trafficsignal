@@ -4,6 +4,7 @@ import org.roadservice.api.trafficsignal.domain.CrossingLane;
 import org.roadservice.api.trafficsignal.domain.Street;
 import org.roadservice.api.trafficsignal.domain.StreetCrossing;
 import org.roadservice.api.trafficsignal.domain.StreetCrossingBuilder;
+import org.roadservice.api.trafficsignal.exceptions.InvalidInputException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,14 @@ public class DataLoaderService {
     private CrossingLaneService crossingLaneService;
     private static final Logger LOGGER = LoggerFactory.getLogger(StreetCrossingBuilder.class);
 
-    public List<CrossingLane> loadData() {
-        List<CrossingLane> crossingLanes = crossingLaneService.addStreetCrossingData(addStreetCrossing());
-        return crossingLanes;
+    public List<CrossingLane> loadData() throws InvalidInputException {
+       try {
+           List<CrossingLane> crossingLanes = crossingLaneService.addStreetCrossingData(addStreetCrossing());
+           return crossingLanes;
+       } catch (InvalidInputException ie) {
+           throw ie;
+       }
+
     }
 
     public StreetCrossing addStreetCrossing() {

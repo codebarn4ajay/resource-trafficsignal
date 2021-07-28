@@ -1,6 +1,7 @@
 package org.roadservice.api.trafficsignal.rest;
 
 import org.roadservice.api.trafficsignal.domain.*;
+import org.roadservice.api.trafficsignal.exceptions.InvalidInputException;
 import org.roadservice.api.trafficsignal.service.TrafficMovementService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,18 +18,22 @@ public class StreetToSignalQueueTransformer {
     private TrafficMovementService trafficMovementService;
     private static final Logger LOGGER = LoggerFactory.getLogger(StreetCrossingBuilder.class);
 
-    public List<CrossingLane> fromStreetToSignal(StreetCrossing streetCrossing) {
+    public List<CrossingLane> fromStreetToSignal(StreetCrossing streetCrossing) throws InvalidInputException{
         List<CrossingLane> signalQueue = new ArrayList<>();
         CrossingLane signalLeftToRightStreetWrapper = null;
         CrossingLane signalTopToBottomWrapper = null;
         if (streetCrossing.getLeftAndRightStreets() != null) {
             signalLeftToRightStreetWrapper = streetToWrapper(streetCrossing.getLeftAndRightStreets(), false);
             signalQueue.add(signalLeftToRightStreetWrapper);
+        } else {
+            throw new InvalidInputException("Invalid Signal Queue");
         }
         if (streetCrossing.getLeftAndRightStreets() != null) {
             //Make TopToBottom (North to South) as green as per requirements
             signalTopToBottomWrapper = streetToWrapper(streetCrossing.getTopAndBottomStreets(), true);
             signalQueue.add(signalTopToBottomWrapper);
+        }else {
+            throw new InvalidInputException("Invalid Signal Queue");
         }
         return signalQueue;
     }

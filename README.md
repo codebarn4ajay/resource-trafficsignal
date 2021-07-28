@@ -21,19 +21,19 @@ Write a program that controls the traffic signals for a four-way intersection. I
 
 6. At the instant the light turns from "green" to "red", a car may not start moving to cross the intersection; whether that car just arrived at the intersection or was waiting at that intersection.
 
-7. The output should be the number of cars that are waiting at the intersection in each direction at each second, for the first 20 seconds. Do not make the program wait 20 seconds to produce the output: this is only a simulation, so print the output when it's ready.
+7. The output should be the number of cars that are waiting at the intersection in each direction at each second. Do not make the program wait 20 seconds to produce the output: this is only a simulation, so print the output when it's ready.
 
 8. Expected output
 ```
- 	0: N = 0; S = 0; E = 0; W = 0
- 	1: N = 0; S = 0; E = 1; W = 1
- 	2: N = 0; S = 0; E = 2; W = 2
- 	3: N = 0; S = 0; E = 3; W = 3
- 	4: N = 1; S = 1; E = 4; W = 4
- 	5: N = 2; S = 2; E = 5; W = 5
- 	6: N = 3; S = 3; E = 5; W = 5
- 	7: N = 4; S = 4; E = 5; W = 5
- 	8: N = 5; S = 5; E = 6; W = 6
+ 	: N = 0; S = 0; E = 0; W = 0
+ 	: N = 0; S = 0; E = 1; W = 1
+ 	: N = 0; S = 0; E = 2; W = 2
+ 	: N = 0; S = 0; E = 3; W = 3
+ 	: N = 1; S = 1; E = 4; W = 4
+ 	: N = 2; S = 2; E = 5; W = 5
+ 	: N = 3; S = 3; E = 5; W = 5
+ 	: N = 4; S = 4; E = 5; W = 5
+ 	: N = 5; S = 5; E = 6; W = 6
 ```
  
 # Compile/run code locally (For 1.0.0 release)
